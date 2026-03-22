@@ -15,9 +15,9 @@ services:
     environment:
       SECRET_KEY: ${SECRET_KEY:-changeme-in-production}
       DEBUG: ${DEBUG:-false}
-      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-django.open4.app}
       DATABASE_URL: postgresql://${POSTGRES_USER:-appuser}:${POSTGRES_PASSWORD:-changeme}@db:5432/${POSTGRES_DB:-appdb}
-      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-https://django.open4.app}
     depends_on:
       - db
     command: >
@@ -27,8 +27,8 @@ services:
   frontend:
     build: ./frontend
     restart: unless-stopped
-    expose:
-      - "80"
+    ports:
+      - "8081:80"
     depends_on:
       - backend
 
